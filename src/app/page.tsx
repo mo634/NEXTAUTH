@@ -4,7 +4,7 @@ import LoginButton from '@/components/auth/LoginButton'
 const Home = () => {
   return (
     <main
-      className='min-h-screen bg-[#0079ff] text-[#eee] flex justify-center items-center'
+      className=''
     >
 
       <div className="space-y-4 text-center">

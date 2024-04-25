@@ -1,6 +1,7 @@
 import React, { Children } from 'react'
 import { Card, CardContent, CardHeader } from '../ui/card'
 import Header from './Header'
+import Link from 'next/link'
 
 interface cardWrapperProps {
     children: React.ReactNode,
@@ -9,7 +10,7 @@ interface cardWrapperProps {
     backButtonHref: String,
     showSocial?: Boolean
 }
-const CardWrapper = ({ children,headerLabel }: cardWrapperProps) => {
+const CardWrapper = ({ children,headerLabel,backButtonLabel,backButtonHref }: cardWrapperProps) => {
     return (
         <Card className=' w-[400px] shadow-md'>
             
@@ -19,6 +20,8 @@ const CardWrapper = ({ children,headerLabel }: cardWrapperProps) => {
 
             <CardContent>
                 {children}
+
+                <Link href={backButtonHref}>{backButtonLabel}</Link>
             </CardContent>
         
         </Card>

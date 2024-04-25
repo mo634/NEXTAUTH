@@ -2,7 +2,7 @@
 import React, { useState, useTransition } from 'react'
 import CardWrapper from './CardWrapper'
 import { useForm } from 'react-hook-form'
-import { LoginSchema } from '../../../schemas'
+import { LoginSchema, RegisterSchema } from '../../../schemas'
 import * as z from "zod"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
@@ -10,16 +10,17 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import FormError from '../FormError'
 import FormSuccess from '../FormSuccess'
-import { login } from '../../../actions/login'
+import { register } from '../../../actions/register'
 import Loader from '../Loader'
-const LogInForm = () => {
+const RegisterForm = () => {
     // states 
 
     // define form and link it with zod schema validation 
     const form = useForm<z.infer<typeof LoginSchema>>(
         {
-            resolver: zodResolver(LoginSchema),
+            resolver: zodResolver(RegisterSchema),
             defaultValues: {
+                name: "",
                 email: "",
                 password: ""
             }
@@ -32,11 +33,11 @@ const LogInForm = () => {
     const [error, setError] = useState<string | null>()
 
     // create a function to submit the form
-    const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
         startTransition(() => {
 
             //send form data to server 
-            login(values).then((data) => {
+            register(values).then((data) => {
                 console.log(data)
                 setSuccess(data.success)
                 setError(data.error)
@@ -45,15 +46,41 @@ const LogInForm = () => {
     }
     return (
         <CardWrapper
-            headerLabel="Welcome Back"
-            backButtonLabel="Don't have an account?"
-            backButtonHref="/register"
+            headerLabel="Create your own account"
+            backButtonLabel="Already have an account?"
+            backButtonHref="/sign-in"
             showSocial
         >
             <Form {...form}>
 
                 <form onSubmit={form.handleSubmit(onSubmit)} className=' flex flex-col gap-3'>
                     <div className="">
+                        {/* name item */}
+                        <FormField
+                            // control={form.control}
+                            name="name"
+                            render={
+                                ({ field }) => (
+                                    <FormItem>
+
+                                        {/* {console.log(field)} */}
+
+                                        <FormLabel>name</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                {...field}
+                                                type='string'
+                                                placeholder='Enter Your Name'
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )
+                            }
+                        >
+
+
+                        </FormField>
                         {/* email item */}
                         <FormField
                             // control={form.control}
@@ -120,7 +147,7 @@ const LogInForm = () => {
                             </div>
 
                         ) : <Button type="submit" className='mt-2 w-full' size={'lg'}>
-                            Login
+                            Register
                         </Button>
                     }
 
@@ -132,4 +159,4 @@ const LogInForm = () => {
     )
 }
 
-export default LogInForm
+export default RegisterForm

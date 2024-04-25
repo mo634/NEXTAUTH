@@ -14,7 +14,7 @@ const LoginButton = ({ children }: ButtonProps) => {
     //funcs
     const handleClick = () => {
         router.push(
-            "auth/sign-in"
+            "/sign-in"
         )
     }
     return (

@@ -13,7 +13,7 @@ const Home = () => {
         <p className=' text-xl'>simple auth app</p>
 
         <LoginButton>
-        <Button className='mt-2' size={'lg'} variant={'secondary'}>sign in</Button> 
+          <Button className='mt-2' size={'lg'} variant={'secondary'}>sign in</Button>
         </LoginButton>
 
 
